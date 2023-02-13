@@ -1,0 +1,13 @@
+{
+  "realm": "kc-auth-realm",
+  "auth-server-url": "http://auth-service:8080/",
+  "ssl-required": "external",
+  "resource": "ks-auth-client",
+  "public-client": true,
+  "confidential-port": 0,
+  "principal-attribute": "name",
+  "bearer-only": true,
+  "enable-cors" : true,
+  "use-resource-role-mappings" : false,
+  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0JubWuXEnCAJ1rLRiML2K8D5IPRwtovCp32V+kOt9OkIYyy4Qyc7+E/uV6wNBBcIviFDMj1UjQg8ezD83soAH726/oUyY5WpEOs1j8SI7bn6WCZIeLtopu9xHIxjigL3YPZ19Rl7IYDEvgb1zrPy34HwhYyTBy+P3FpXMw9lAZeCSxTG2ZLL46ZYPXnDjMTpF2xUMBg5IwVpRpHBZhkuGVEylOemxBB5w6agd1eJeapMLoeLw5m+FOR/7MPTazWzD5U8vWpj4oZs1JDex6ZGPj2osKrOk2XBqFvIOYIzJ7p0VJoK0z2r9lkJ7ebmdwMVp58Rw994qmbknGhLjQQfGQIDAQAB"
+}

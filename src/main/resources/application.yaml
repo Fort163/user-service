@@ -1,0 +1,23 @@
+server:
+  port: 8050
+keycloak:
+  enabled: false
+  configurationFile: ${KEYCLOAK_JSON_PATH:file:src/main/resources/keycloak.json}
+
+org:
+  keycloak:
+    url:
+      base: ${KEYCLOAK_URL:http://localhost:8180}
+      login: /realms/${REALM:kc-auth-realm}/protocol/openid-connect/token
+      users: /admin/realms/${REALM:kc-auth-realm}/users
+      roles: /admin/realms/${REALM:kc-auth-realm}/roles
+      groups: /admin/realms/${REALM:kc-auth-realm}/groups
+      users_by_role: /admin/realms/${REALM:kc-auth-realm}/roles/{role_name}/users
+      group_by_user: /admin/realms/${REALM:kc-auth-realm}/users/{user}/groups
+      group_member: /admin/realms/${REALM:kc-auth-realm}/groups/{group}/members
+      roles_by_user: /admin/realms/${REALM:kc-auth-realm}/users/{user}/role-mappings/realm/composite
+    auth:
+      user: ${KEYCLOAK_AUTH_USER:userservice}
+      password: ${KEYCLOAK_AUTH_PASSWORD:123}
+      client_id: ${KEYCLOAK_AUTH_CLIENT_ID:ks-auth-client}
+
