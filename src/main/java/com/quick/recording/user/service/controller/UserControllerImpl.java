@@ -38,7 +38,6 @@ public class UserControllerImpl implements UserController {
             userDto.setName("Витя Дробыш");
             userDto.setAge(60);
             userDto.setUuid(UUID.randomUUID());
-            companyController.getCompany();
             UserDto userDto1 = new UserDto();
             userDto1.setName("Генадий Хазанов");
             userDto1.setAge(55);
