@@ -1,6 +1,14 @@
 server:
   port: 8098
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          client-id: 'test-client'
+          client-secret: 'test-client'
+          username: 'user'
+          custom-auth: true
   main:
     allow-bean-definition-overriding: true
   application:

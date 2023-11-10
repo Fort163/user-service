@@ -4,6 +4,8 @@ import com.quick.recording.gateway.dto.company.CompanyDto;
 import com.quick.recording.gateway.dto.company.ScheduleDto;
 import com.quick.recording.gateway.service.company.CompanyController;
 import com.quick.recording.gateway.service.company.ScheduleController;
+import com.quick.recording.resource.service.anatation.CurrentUser;
+import com.quick.recording.resource.service.security.QROAuth2AuthenticatedPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +23,8 @@ public class TestController {
     private CompanyController companyController;
 
     @GetMapping("/show")
-    public ResponseEntity<List<Object>> show(){
-        ResponseEntity<CompanyDto> company = companyController.getCompany();
+    public ResponseEntity<List<Object>> show(@CurrentUser QROAuth2AuthenticatedPrincipal user){
+        ResponseEntity<CompanyDto> company = companyController.getCompany(user);
         /*
         ResponseEntity<ScheduleDto> scheduleDtoResponseEntity = scheduleController.scheduleByCompanyUuid(company.getBody().getUuid().toString());
         ResponseEntity<List<CompanyDto>> companyList = companyController.getCompanyList();*/

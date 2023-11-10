@@ -21,6 +21,11 @@ public class UserControllerImpl implements UserController {
     private CompanyController companyController;
 
     @Override
+    public ResponseEntity<UserDto> getTest(String name) {
+        return null;
+    }
+
+    @Override
     @GetMapping({"/currentUser"})
     public ResponseEntity<UserDto> getCurrentUser() {
         UserDto userDto = new UserDto();
