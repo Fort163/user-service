@@ -24,10 +24,7 @@ public class TestController {
 
     @GetMapping("/show")
     public ResponseEntity<List<Object>> show(@CurrentUser QROAuth2AuthenticatedPrincipal user){
-        ResponseEntity<CompanyDto> company = companyController.getCompany(user);
-        /*
-        ResponseEntity<ScheduleDto> scheduleDtoResponseEntity = scheduleController.scheduleByCompanyUuid(company.getBody().getUuid().toString());
-        ResponseEntity<List<CompanyDto>> companyList = companyController.getCompanyList();*/
+        ResponseEntity<CompanyDto> company = companyController.getCompany();
         return  ResponseEntity.ok(List.of(company.getBody())) ;
     }
 
