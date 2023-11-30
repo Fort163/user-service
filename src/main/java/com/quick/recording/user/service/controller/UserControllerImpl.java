@@ -1,9 +1,11 @@
 package com.quick.recording.user.service.controller;
 
+import com.quick.recording.gateway.dto.auth.AuthUserDto;
 import com.quick.recording.gateway.dto.user.UserDto;
+import com.quick.recording.gateway.service.auth.AuthServiceUserApi;
 import com.quick.recording.gateway.service.company.CompanyController;
 import com.quick.recording.gateway.service.user.UserController;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")
 public class UserControllerImpl implements UserController {
 
-    @Autowired
-    private CompanyController companyController;
+    private final CompanyController companyController;
+    private final AuthServiceUserApi authServiceUserApi;
 
     @Override
     public ResponseEntity<UserDto> getTest(String name) {
@@ -46,6 +49,9 @@ public class UserControllerImpl implements UserController {
             UserDto userDto1 = new UserDto();
             userDto1.setName("Генадий Хазанов");
             userDto1.setAge(55);
+            AuthUserDto userDto2 = new AuthUserDto();
+            userDto2.setUuid(UUID.randomUUID());
+            ResponseEntity<AuthUserDto> put = authServiceUserApi.put(userDto2);
             userDto1.setUuid(UUID.randomUUID());
             return ResponseEntity.ok(List.of(userDto,userDto1));
         }
