@@ -7,6 +7,7 @@ import com.quick.recording.gateway.service.company.CompanyController;
 import com.quick.recording.gateway.service.user.UserController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +52,7 @@ public class UserControllerImpl implements UserController {
             userDto1.setAge(55);
             AuthUserDto userDto2 = new AuthUserDto();
             userDto2.setUuid(UUID.randomUUID());
-            ResponseEntity<AuthUserDto> put = authServiceUserApi.put(userDto2);
+            ResponseEntity<AuthUserDto> put = authServiceUserApi.patch(userDto2);
             userDto1.setUuid(UUID.randomUUID());
             return ResponseEntity.ok(List.of(userDto,userDto1));
         }

@@ -1,21 +1,33 @@
 server:
-  port: 8098
+  port: ${SERVER_PORT}
 spring:
+  application:
+    name: user-service
   security:
     oauth2:
       resourceserver:
         opaquetoken:
-          client-id: 'test-client'
-          client-secret: 'test-client'
-          username: 'user'
-          custom-auth: true
+          client-id: ${SECURITY_CLIENT_ID}
+          client-secret: ${SECURITY_CLIENT_SECRET}
+          custom-auth: ${SECURITY_CUSTOM_AUTH}
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: ${JPA_SHOW_SQL}
+    database-platform: ${JPA_DATABASE_PLATFORM}
+  liquibase:
+    change-log: ${LIQUIBASE_CHANGE_LOG}
   main:
     allow-bean-definition-overriding: true
-  application:
-    name: user-service
 eureka:
   instance:
-    hostname: localhost
+    hostname: ${EUREKA_INSTANCE_HOSTNAME}
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL}
+gateway:
+  logger: ${GATEWAY_LOGER_URL}
