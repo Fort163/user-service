@@ -1,13 +1,11 @@
-package com.quick.recording.user.service.controller;
+package com.quick.recording.employee.service.controller;
 
 import com.quick.recording.gateway.dto.auth.AuthUserDto;
 import com.quick.recording.gateway.dto.user.UserDto;
 import com.quick.recording.gateway.service.auth.AuthServiceUserApi;
-import com.quick.recording.gateway.service.company.CompanyController;
 import com.quick.recording.gateway.service.user.UserController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +19,6 @@ import java.util.UUID;
 @RequestMapping("/user")
 public class UserControllerImpl implements UserController {
 
-    private final CompanyController companyController;
     private final AuthServiceUserApi authServiceUserApi;
 
     @Override
@@ -73,7 +70,7 @@ public class UserControllerImpl implements UserController {
             return ResponseEntity.ok(userDto);
         }
         else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 
