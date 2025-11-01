@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:latest
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_USER=${REDIS_USER}
+      - REDIS_USER_PASSWORD=${REDIS_USER_PASSWORD}
+    ports:
+      - "6398:6379"
+    networks:
+      - search-network
+      - user-service-infrastructure-network
+
+  postgres:
+    image: "postgres:17.4"
+    volumes:
+      - ../db/data:/var/lib/postgresql/data/
+      - ./script:/docker-entrypoint-initdb.d/:rw
+      - ./conf/postgresql.conf:/etc/postgresql.conf
+      - ../db/logs:/logs
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5498:5432"
+    command: -c config_file=/etc/postgresql.conf
+    networks:
+      - user-service-infrastructure-network
+
+networks:
+  user-service-infrastructure-network:
+    name: user-service-infrastructure-network
+    driver: bridge
+  search-network:
+    external: true
+    name: data-search-network
