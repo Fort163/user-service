@@ -5,19 +5,22 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.12</version>
+		<version>3.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.quick.recording</groupId>
-	<artifactId>employee-service</artifactId>
+	<artifactId>user-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>employee-service</name>
-	<description>employee-service</description>
+	<name>user-service</name>
+	<description>User service</description>
 	<properties>
 		<java.version>17</java.version>
-		<spring-cloud.version>2022.0.4</spring-cloud.version>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
+		<postgres.version>42.2.19</postgres.version>
+		<maven.compiler.version>3.13.0</maven.compiler.version>
+		<docker.plugin.version>1.4.13</docker.plugin.version>
+		<qr.gateway.version>0.0.1-SNAPSHOT</qr.gateway.version>
+		<docker.image.prefix>qr</docker.image.prefix>
+		<docker.hub.location>fort163</docker.hub.location>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -27,17 +30,12 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.2.19</version>
+			<version>${postgres.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.quick.recording</groupId>
-			<artifactId>gateway</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<artifactId>qr-gateway</artifactId>
+			<version>${qr.gateway.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -46,6 +44,30 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>${docker.plugin.version}</version>
+				<configuration>
+					<repository>${docker.hub.location}/${docker.image.prefix}-${project.artifactId}</repository>
+					<tag>${project.version}</tag>
+					<buildArgs>
+						<JAR_FILE>
+							target/${project.build.finalName}.jar
+						</JAR_FILE>
+					</buildArgs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>dockerDeploy</id>
+						<phase>install</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
