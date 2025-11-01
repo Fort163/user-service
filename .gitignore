@@ -33,3 +33,4 @@ application-local.yml
 
 ### VS Code ###
 .vscode/
+/db/
