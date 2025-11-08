@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+
+  company-item-1:
+    image: fort163/qr-user-service:0.0.1-SNAPSHOT
+    environment:
+      - ACTIVE_PROFILE=${PROFILE}
+      - CONFIG_SERVER=${CONFIG_SERVER}
+      - INSTANCE_HOSTNAME=user-service-cluster-company-item-1-1
+    ports:
+      - "8070:8070"
+    networks:
+      - user-service-infrastructure
+      - kafka
+      - single-service
+
+  company-item-2:
+    image: fort163/qr-user-service:0.0.1-SNAPSHOT
+    environment:
+      - ACTIVE_PROFILE=${PROFILE}
+      - CONFIG_SERVER=${CONFIG_SERVER}
+      - SERVER_PORT=8071
+      - INSTANCE_HOSTNAME=user-service-cluster-company-item-2-1
+    ports:
+      - "8071:8071"
+    networks:
+      - user-service-infrastructure
+      - kafka
+      - single-service
+
+networks:
+  single-service:
+    external: true
+    name: single-service-network
+  user-service-infrastructure:
+    external: true
+    name: user-service-infrastructure-network
+  kafka:
+    external: true
+    name: kafka-network
