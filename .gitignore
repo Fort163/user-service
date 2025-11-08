@@ -30,6 +30,7 @@ build/
 !**/src/test/**/build/
 
 application-local.yml
+.env
 
 ### VS Code ###
 .vscode/
