@@ -11,6 +11,7 @@ import com.quick.recording.gateway.entity.SmartEntity;
 import com.quick.recording.gateway.main.service.local.MainService;
 import com.quick.recording.gateway.test.MainTestController;
 import com.quick.recording.gateway.test.TestCase;
+import com.quick.recording.user.service.service.local.RoleServiceImpl;
 import com.quick.recording.user.service.service.local.UserInfoService;
 import com.quick.recording.user.service.service.remote.RemoteCompanyServiceImpl;
 import com.quick.recording.user.service.service.remote.RemoteEmployeeServiceImpl;
@@ -51,6 +52,9 @@ public class UserTestController extends MainTestController<UserInfoDto> {
 
     @MockitoBean
     private RemoteEmployeeServiceImpl remoteEmployeeService;
+
+    @MockitoBean
+    private RoleServiceImpl roleService;
 
     @Override
     public List<MainService<? extends SmartEntity, ? extends SmartDto>> getServicesForClear() {
