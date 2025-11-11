@@ -12,6 +12,7 @@ import com.quick.recording.gateway.enumerated.MessageType;
 import com.quick.recording.gateway.enumerated.Project;
 import com.quick.recording.gateway.enumerated.SendType;
 import com.quick.recording.resource.service.anatation.WithServerAuth;
+import com.quick.recording.user.service.repository.dto.UserInfoDtoRepository;
 import com.quick.recording.user.service.service.remote.RemoteEmployeeService;
 import com.quick.recording.user.service.service.remote.RemoteNotificationMessageService;
 import com.quick.recording.user.service.service.remote.RemoteRoleService;
@@ -40,6 +41,7 @@ public class RoleServiceImpl implements RoleService{
     private final RemoteEmployeeService remoteEmployeeService;
     private final RemoteRoleService roleService;
     private final RemoteNotificationMessageService messageService;
+    private final UserInfoDtoRepository userInfoDtoRepository;
     private final MessageUtil messageUtil;
 
     @Override
@@ -87,6 +89,7 @@ public class RoleServiceImpl implements RoleService{
             }
             NotificationMessageDto messageDto = createMessage(newDto.getUserId());
             messageService.post(messageDto);
+            userInfoDtoRepository.deleteById(newDto.getUuid());
         }
         else {
             if(!oldDto.getEmployeeId().equals(newDto.getEmployeeId())){
@@ -119,6 +122,7 @@ public class RoleServiceImpl implements RoleService{
 
                 NotificationMessageDto messageDto = createMessage(newDto.getUserId());
                 messageService.post(messageDto);
+                userInfoDtoRepository.deleteById(newDto.getUuid());
             }
         }
     }
